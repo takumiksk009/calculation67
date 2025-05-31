@@ -4,7 +4,7 @@ function calculate() {
 
     // 基本料金・従量料金のテーブル
     let baseRates = { A: 755.00, B: 1080.00, C: 2283.60 };
-    let unitRates = { A: 450.99, B: 410.36, C: 370.24 };
+    let unitRates = { A: 451.83, B: 411.20, C: 371.08 };
 
     // 1カ月換算使用量の計算
     let monthlyUsage = (usage / days) * 30;

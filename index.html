@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>№6、№7料金計算【５月】</title>
+  <title>№6、№7料金計算【６月】</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -80,10 +80,17 @@
     #result p {
       margin: 8px 0;
     }
+
+    .rate-group {
+      font-size: 20px;
+      font-weight: bold;
+      color: #1565c0;
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
-  <h1>№6、№7料金計算【５月】</h1>
+  <h1>№6、№7料金計算【６月】</h1>
 
   <div class="grid-container">
     <div class="full-width">
@@ -126,7 +133,7 @@
       const prevMeter = parseFloat(document.getElementById("prevMeter").value);
 
       if (isNaN(currMeter) || isNaN(prevMeter) || currMeter < prevMeter || isNaN(currDate) || isNaN(prevDate)) {
-        alert("日付や指針の入力を確認してください。")
+        alert("日付や指針の入力を確認してください。");
         return;
       }
 
@@ -136,20 +143,23 @@
       document.getElementById("autoResult").innerHTML = `使用量: ${usage}㎥ ／ 使用日数: ${days}日`;
 
       const baseRates = { A: 755.00, B: 1080.00, C: 2283.60 };
-      const unitRates = { A: 450.99, B: 410.36, C: 370.24 };
+      const unitRates = { A: 451.83, B: 411.20, C: 371.08 };
 
       const monthlyUsage = (usage / days) * 30;
-      let baseRate, unitRate;
+      let baseRate, unitRate, rateGroup;
 
       if (monthlyUsage <= 8) {
         baseRate = baseRates.A;
         unitRate = unitRates.A;
+        rateGroup = 'A群（～8㎥）';
       } else if (monthlyUsage <= 30) {
         baseRate = baseRates.B;
         unitRate = unitRates.B;
+        rateGroup = 'B群（8.1～30㎥）';
       } else {
         baseRate = baseRates.C;
         unitRate = unitRates.C;
+        rateGroup = 'C群（30.1㎥～）';
       }
 
       const baseFee = Math.floor((days / 30) * baseRate);
@@ -161,6 +171,7 @@
       const total = subtotal + tax + alarmRental + alarmTax;
 
       document.getElementById("result").innerHTML = `
+        <div class="rate-group">料金区分：${rateGroup}</div>
         <p>【1カ月換算使用量】: ${monthlyUsage.toFixed(2)}㎥</p>
         <p>【基本料金】: ¥${baseFee}</p>
         <p>【従量料金】: ¥${volumeFee}</p>
